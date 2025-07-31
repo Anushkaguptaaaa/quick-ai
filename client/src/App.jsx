@@ -7,6 +7,8 @@ import RemoveObject from './pages/RemoveObject'
 import ReviewResume from './pages/ReviewResume'
 import WriteArticle from './pages/WriteArticle'
 import BlogTitles from './pages/BlogTitles'
+import Layout from './pages/Layout'
+import Community from './pages/Community'
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
           <Route path='review-resume' element={<ReviewResume />} />
           <Route path='write-article' element={<WriteArticle />} />
           <Route path='blog-titles' element={<BlogTitles />} />
+          <Route path='community' element={<Community />} />
+
         </Route>
       </Routes>
     </div>
