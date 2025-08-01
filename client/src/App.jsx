@@ -9,6 +9,7 @@ import WriteArticle from './pages/WriteArticle'
 import BlogTitles from './pages/BlogTitles'
 import Layout from './pages/Layout'
 import Community from './pages/Community'
+import GenerateImages from './pages/GenerateImages'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='write-article' element={<WriteArticle />} />
           <Route path='blog-titles' element={<BlogTitles />} />
           <Route path='community' element={<Community />} />
+          <Route path='generate-images' element={<GenerateImages />} />
 
         </Route>
       </Routes>
