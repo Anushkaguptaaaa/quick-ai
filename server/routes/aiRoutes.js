@@ -1,6 +1,6 @@
 import express from "express";
 import { auth } from "../middlewares/auth.js";
-import { generateArticle, generateBlogTitle, generateImage, removeImageBackground, removeImageObject, resumeReview } from "../controllers/aiController.js";
+import { generateArticle } from "../controllers/aiController.js";
 
 
 const aiRouter = express.Router();
