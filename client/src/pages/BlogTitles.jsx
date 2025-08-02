@@ -1,7 +1,11 @@
 import { useAuth } from '@clerk/clerk-react';
 import { Hash, Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import Markdown from 'react-markdown'
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const BlogTitles = () => {
 
@@ -17,6 +21,21 @@ const BlogTitles = () => {
   
     const onSubmitHandler = async (e)=>{
       e.preventDefault();
+      try {
+         setLoading(true)
+         const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`
+
+         const { data } = await axios.post('/api/ai/generate-blog-title', {prompt}, {headers: {Authorization: `Bearer ${await getToken()}`}})
+
+         if (data.success) {
+          setContent(data.content)
+         }else{
+          toast.error(data.message)
+         }
+      } catch (error) {
+        toast.error(error.message)
+      }
+      setLoading(false)
     }
 
   return (

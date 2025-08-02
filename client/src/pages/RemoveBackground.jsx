@@ -1,6 +1,10 @@
 import { Eraser, Sparkles } from 'lucide-react';
 import React, { useState } from 'react'
+import axios from 'axios'
 import { useAuth } from '@clerk/clerk-react';
+import toast from 'react-hot-toast';
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const RemoveBackground = () => {
 
@@ -18,21 +22,15 @@ const RemoveBackground = () => {
           const formData = new FormData()
           formData.append('image', input)
 
-          const response = await fetch('/api/ai/remove-image-background', {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${await getToken()}`
-            },
-            body: formData
-          });
-
-          const data = await response.json();
+          const { data } = await axios.post('/api/ai/remove-image-background',formData, {headers: {Authorization: `Bearer ${await getToken()}`}})
 
          if (data.success) {
           setContent(data.content)
+         }else{
+          toast.error(data.message)
          }
         } catch (error) {
-          console.error(error);
+          toast.error(error.message)
         }
         setLoading(false)
       }
