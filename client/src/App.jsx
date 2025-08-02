@@ -12,15 +12,11 @@ import Community from './pages/Community'
 import GenerateImages from './pages/GenerateImages'
 import { useAuth } from '@clerk/clerk-react'
 import { useEffect } from 'react'
+import {Toaster} from 'react-hot-toast'
 
 const App = () => {
 
-  const { getToken } = useAuth()
-  useEffect(() => {
-    if (getToken) {
-      getToken().then((token) => console.log(token));
-    }
-  }, [getToken])
+  
   return (
     <div>
       <Routes>
