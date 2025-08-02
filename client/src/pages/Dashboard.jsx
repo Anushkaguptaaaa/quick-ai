@@ -3,6 +3,10 @@ import { dummyCreationData } from '../assets/assets'
 import { Gem, Sparkles } from 'lucide-react'
 import { Protect, useAuth } from '@clerk/clerk-react'
 import CreationItem from '../components/CreationItem'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
 const Dashboard = () => {
  
@@ -10,9 +14,25 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const { getToken } = useAuth()
 
-  useEffect(()=>{
-    setCreations(dummyCreationData)
+  const getDashboardData = async ()=>{
+    try {
+      const { data } = await axios.get('/api/user/get-user-creations', {
+        headers : {Authorization: `Bearer ${await getToken()}`}
+      })
+
+      if (data.success) {
+        setCreations(data.creations)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
     setLoading(false)
+  }
+
+  useEffect(()=>{
+    getDashboardData()
   }, [])
 
   return (
