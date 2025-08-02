@@ -10,8 +10,17 @@ import BlogTitles from './pages/BlogTitles'
 import Layout from './pages/Layout'
 import Community from './pages/Community'
 import GenerateImages from './pages/GenerateImages'
+import { useAuth } from '@clerk/clerk-react'
+import { useEffect } from 'react'
 
 const App = () => {
+
+  const { getToken } = useAuth()
+  useEffect(() => {
+    if (getToken) {
+      getToken().then((token) => console.log(token));
+    }
+  }, [getToken])
   return (
     <div>
       <Routes>
